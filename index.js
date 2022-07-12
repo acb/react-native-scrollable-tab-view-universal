@@ -91,7 +91,7 @@ const ScrollableTabView = createReactClass({
   },
 
   componentDidMount() {
-    this.goToPage(this.props.page);
+    this.goToPage(this.props.initialPage);
   },
 
   componentWillUnmount() {
