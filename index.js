@@ -1,12 +1,16 @@
 const React = require('react');
+const { Component, } = React;
 const ReactNative = require('react-native');
+const { ViewPropTypes } = require('deprecated-react-native-prop-types');
 const createReactClass = require('create-react-class');
 const PropTypes = require('prop-types');
 const {
   Dimensions,
   View,
   Animated,
+  ScrollView,
   StyleSheet,
+  InteractionManager,
 } = ReactNative;
 const TimerMixin = require('react-timer-mixin');
 
@@ -30,6 +34,7 @@ const ScrollableTabView = createReactClass({
     onChangeTab: PropTypes.func,
     onScroll: PropTypes.func,
     renderTabBar: PropTypes.any,
+    style: ViewPropTypes.style,
     contentProps: PropTypes.object,
     scrollWithoutAnimation: PropTypes.bool,
     locked: PropTypes.bool,
