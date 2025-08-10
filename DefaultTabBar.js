@@ -19,7 +19,6 @@ const DefaultTabBar = createReactClass({
     backgroundColor: PropTypes.string,
     activeTextColor: PropTypes.string,
     inactiveTextColor: PropTypes.string,
-    textStyle: Text.propTypes.style,
     tabStyle: ViewPropTypes.style,
     renderTab: PropTypes.func,
     underlineStyle: ViewPropTypes.style,
@@ -37,7 +36,7 @@ const DefaultTabBar = createReactClass({
   },
 
   renderTab(name, page, isTabActive, onPressHandler) {
-    const { activeTextColor, inactiveTextColor, textStyle, } = this.props;
+    const { activeTextColor, inactiveTextColor, } = this.props;
     const textColor = isTabActive ? activeTextColor : inactiveTextColor;
     const fontWeight = isTabActive ? 'bold' : 'normal';
 
@@ -50,7 +49,7 @@ const DefaultTabBar = createReactClass({
       onPress={() => onPressHandler(page)}
     >
       <View style={[styles.tab, this.props.tabStyle, ]}>
-        <Text style={[{color: textColor, fontWeight, }, textStyle, ]}>
+        <Text style={[{color: textColor, fontWeight, }, ]}>
           {name}
         </Text>
       </View>
@@ -68,10 +67,20 @@ const DefaultTabBar = createReactClass({
       bottom: 0,
     };
 
-    const translateX = this.props.scrollValue.interpolate({
+    // something in updating RB to .80 made this need to range negative and add an offset for even numbers of tabs
+    const tabWidth = containerWidth / numberOfTabs;
+    const adjustment = numberOfTabs % 2 === 0 ? .5 : 0;
+
+    let scrollValue = this.props.scrollValue;
+    if(adjustment) {
+      scrollValue = Animated.subtract(this.props.scrollValue, new Animated.Value(adjustment));
+    }
+
+    let translateX = scrollValue.interpolate({
       inputRange: [0, 1],
-      outputRange: [0,  containerWidth / numberOfTabs],
+      outputRange: [-tabWidth, 0],
     });
+
     return (
       <View style={[styles.tabs, {backgroundColor: this.props.backgroundColor, }, this.props.style, ]}>
         {this.props.tabs.map((name, page) => {
