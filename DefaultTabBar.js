@@ -69,7 +69,10 @@ const DefaultTabBar = createReactClass({
 
     // something in updating RB to .80 made this need to range negative and add an offset for even numbers of tabs
     const tabWidth = containerWidth / numberOfTabs;
-    const adjustment = numberOfTabs % 2 === 0 ? .5 : 0;
+    let adjustment = numberOfTabs % 2 === 0 ? .5 : 0;
+    if(numberOfTabs === 5) {
+        adjustment = 1;
+    }
 
     let scrollValue = this.props.scrollValue;
     if(adjustment) {
