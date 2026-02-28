@@ -72,6 +72,8 @@ const DefaultTabBar = createReactClass({
     let adjustment = numberOfTabs % 2 === 0 ? .5 : 0;
     if(numberOfTabs === 5) {
         adjustment = 1;
+    } else if(numberOfTabs === 2) {
+        adjustment = -.5;
     }
 
     let scrollValue = this.props.scrollValue;
