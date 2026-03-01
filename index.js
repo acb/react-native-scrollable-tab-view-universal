@@ -235,7 +235,8 @@ const ScrollableTabView = createReactClass({
     const currentPage = this.state.currentPage;
     this.updateSceneKeys({
       page: localNextPage,
-      callback: this._onChangeTab.bind(this, currentPage, localNextPage),
+      // commented this out because it was firing 2 extra onChangeTab events
+    //   callback: this._onChangeTab.bind(this, currentPage, localNextPage),
     });
   },
 
